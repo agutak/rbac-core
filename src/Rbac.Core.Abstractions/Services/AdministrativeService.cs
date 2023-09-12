@@ -46,7 +46,7 @@ internal class AdministrativeService<TRole> : IAdministrativeService<TRole> wher
         return true;
     }
 
-    public async Task<bool> AssignUserAsync(Guid userId, Guid roleId, CancellationToken cancellationToken)
+    public async Task<bool> AssignUserAsync(string userId, Guid roleId, CancellationToken cancellationToken)
     {
         var role = await _rolesRepository
             .GetAggregateAsync(roleId, cancellationToken)
@@ -64,7 +64,7 @@ internal class AdministrativeService<TRole> : IAdministrativeService<TRole> wher
         return true;
     }
 
-    public async Task<bool> DeassignUserAsync(Guid userId, Guid roleId, CancellationToken cancellationToken)
+    public async Task<bool> DeassignUserAsync(string userId, Guid roleId, CancellationToken cancellationToken)
     {
         var role = await _rolesRepository
             .GetAggregateAsync(roleId, cancellationToken)

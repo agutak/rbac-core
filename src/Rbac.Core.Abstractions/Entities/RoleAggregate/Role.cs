@@ -1,11 +1,9 @@
-﻿using AHutak.Rbac.Core.Abstractions.Entities.PermissionAggregate;
-
-namespace AHutak.Rbac.Core.Abstractions.Entities.RoleAggregate;
+﻿namespace AHutak.Rbac.Core.Abstractions.Entities.RoleAggregate;
 
 public class Role
 {
-    protected readonly List<UserAssignment> _userAssignments = new();
-    protected readonly List<PermissionAssignment> _permissionAssignments = new();
+    private readonly List<UserAssignment> _userAssignments = new();
+    private readonly List<PermissionAssignment> _permissionAssignments = new();
 
     public Role(
         Guid id,
@@ -35,7 +33,7 @@ public class Role
         Description = description;
     }
 
-    public virtual void AssignUser(Guid userId)
+    public virtual void AssignUser(string userId)
     {
         if (_userAssignments.Any(x => x.UserId == userId))
             return;
@@ -43,7 +41,7 @@ public class Role
         _userAssignments.Add(new UserAssignment(userId, Id));
     }
 
-    public virtual void DeassignUser(Guid userId)
+    public virtual void DeassignUser(string userId)
     {
         _ = _userAssignments.RemoveAll(x => x.UserId == userId);
     }
@@ -56,22 +54,9 @@ public class Role
         _permissionAssignments.Add(new PermissionAssignment(permissionId, Id));
     }
 
-    public virtual void GrantPermission(Permission permission)
-    {
-        if (_permissionAssignments.Any(x => x.PermissionId == permission.Id))
-            return;
-
-        _permissionAssignments.Add(new PermissionAssignment(permission.Id, Id));
-    }
-
     public virtual void RevokePermission(Guid permissionId)
     {
         _ = _permissionAssignments.RemoveAll(x => x.PermissionId == permissionId);
-    }
-
-    public virtual void RevokePermission(Permission permission)
-    {
-        _ = _permissionAssignments.RemoveAll(x => x.PermissionId == permission.Id);
     }
 
     private static void ValidateName(string name)
