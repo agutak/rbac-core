@@ -22,7 +22,7 @@ jobs:
         dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore Rbac.Core.sln
-      working-directory: ./src
+      working-directory: /
     - name: Build
       run: dotnet build --no-restore
       working-directory: ./src/Rbac.Core.Abstractions
