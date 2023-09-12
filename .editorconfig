@@ -321,3 +321,5 @@ dotnet_style_prefer_simplified_boolean_expressions = true:error
 dotnet_style_allow_multiple_blank_lines_experimental = false:error
 dotnet_style_allow_statement_immediately_after_block_experimental = false:error
 dotnet_code_quality_unused_parameters = all:warning
+
+dotnet_code_quality.ca1711.allowed_suffixes = Permission

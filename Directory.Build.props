@@ -1,15 +1,16 @@
 <Project>
   <PropertyGroup>
-        <AssemblyName>AHutak.$(MSBuildProjectName)</AssemblyName>
-        <RootNamespace>AHutak.$(MSBuildProjectName.Replace(" ", ""))</RootNamespace>
-        
-        <TargetFramework>net7.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <LangVersion>latest</LangVersion>
-        <AnalysisLevel>latest-Recommended</AnalysisLevel>
-        <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-        
-        <Authors>Anatolii Hutak</Authors>
-    </PropertyGroup>
+    <AssemblyName>AHutak.$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>AHutak.$(MSBuildProjectName.Replace(" ", ""))</RootNamespace>
+
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
+    <Authors>Anatolii Hutak</Authors>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
 </Project>
