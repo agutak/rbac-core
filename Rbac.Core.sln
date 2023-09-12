@@ -3,7 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rbac.Core.Abstractions", "Rbac.Core.Abstractions\Rbac.Core.Abstractions.csproj", "{3DDB4DA8-0E9A-42C8-A5F8-4DEC5AA904FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rbac.Core.Abstractions", "src\Rbac.Core.Abstractions\Rbac.Core.Abstractions.csproj", "{3DDB4DA8-0E9A-42C8-A5F8-4DEC5AA904FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{14764C25-62E8-4A6F-A7F7-DCEDC91F8FC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{227186C7-B6BC-4A3A-BAE9-B083D69E75E8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +29,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3DDB4DA8-0E9A-42C8-A5F8-4DEC5AA904FE} = {14764C25-62E8-4A6F-A7F7-DCEDC91F8FC3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2DC6117A-DF26-4F2E-9468-FCE51C7ED9DB}
