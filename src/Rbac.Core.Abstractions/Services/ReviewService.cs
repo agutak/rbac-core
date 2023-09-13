@@ -3,7 +3,7 @@ using AHutak.Rbac.Core.Abstractions.Entities.RoleAggregate;
 
 namespace AHutak.Rbac.Core.Abstractions.Services;
 
-internal class ReviewService<TRole, TPermission> : IReviewService<TRole, TPermission>
+public class ReviewService<TRole, TPermission> : IReviewService<TRole, TPermission>
     where TRole : Role
     where TPermission : Permission
 {

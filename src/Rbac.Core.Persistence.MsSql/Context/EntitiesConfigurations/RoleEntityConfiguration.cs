@@ -22,7 +22,8 @@ internal class RoleEntityConfiguration : IEntityTypeConfiguration<Role>
 
         builder
             .HasMany(x => x.PermissionAssignments)
-            .WithOne();
+            .WithOne()
+            .IsRequired();
 
         builder.Metadata
             .FindNavigation(nameof(Role.UserAssignments))?
@@ -30,7 +31,8 @@ internal class RoleEntityConfiguration : IEntityTypeConfiguration<Role>
 
         builder
             .HasMany(x => x.UserAssignments)
-            .WithOne();
+            .WithOne()
+            .IsRequired();
 
         builder
             .HasIndex(x => x.Id)

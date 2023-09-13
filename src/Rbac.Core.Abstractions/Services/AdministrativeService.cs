@@ -2,7 +2,7 @@
 
 namespace AHutak.Rbac.Core.Abstractions.Services;
 
-internal class AdministrativeService<TRole> : IAdministrativeService<TRole> where TRole : Role
+public class AdministrativeService<TRole> : IAdministrativeService<TRole> where TRole : Role
 {
     private readonly IRolesRepository<TRole> _rolesRepository;
     private readonly IUnitOfWork _unitOfWork;
