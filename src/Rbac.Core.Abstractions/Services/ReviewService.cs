@@ -1,9 +1,16 @@
-﻿using AHutak.Rbac.Core.Abstractions.Entities.PermissionAggregate;
-using AHutak.Rbac.Core.Abstractions.Entities.RoleAggregate;
+﻿using AHutak.Rbac.Core.Abstractions.Entities;
 
 namespace AHutak.Rbac.Core.Abstractions.Services;
 
-internal class ReviewService<TRole, TPermission> : IReviewService<TRole, TPermission> where TRole : Role
+public class ReviewService : ReviewService<Role, SimplePermission>
+{
+    public ReviewService(IRolesRepository<Role> rolesRepository) : base(rolesRepository)
+    {
+    }
+}
+
+public class ReviewService<TRole, TPermission> : IReviewService<TRole, TPermission>
+    where TRole : Role
     where TPermission : Permission
 {
     private readonly IRolesRepository<TRole> _rolesRepository;
@@ -13,14 +20,14 @@ internal class ReviewService<TRole, TPermission> : IReviewService<TRole, TPermis
         _rolesRepository = rolesRepository;
     }
 
-    public async Task<List<Guid>> GetAssignedUsersAsync(Guid roleId, CancellationToken cancellationToken)
+    public async Task<List<string>> GetAssignedUsersAsync(Guid roleId, CancellationToken cancellationToken)
     {
         return await _rolesRepository
             .GetAssignedUsersAsync(roleId, cancellationToken)
             .ConfigureAwait(false);
     }
 
-    public async Task<List<TRole>> GetAssignedRolesAsync(Guid userId, CancellationToken cancellationToken)
+    public async Task<List<TRole>> GetAssignedRolesAsync(string userId, CancellationToken cancellationToken)
     {
         return await _rolesRepository
             .GetAssignedRolesAsync(userId, cancellationToken)
@@ -34,7 +41,7 @@ internal class ReviewService<TRole, TPermission> : IReviewService<TRole, TPermis
             .ConfigureAwait(false);
     }
 
-    public async Task<List<TPermission>> GetUserPermissionsAsync(Guid userId, CancellationToken cancellationToken)
+    public async Task<List<TPermission>> GetUserPermissionsAsync(string userId, CancellationToken cancellationToken)
     {
         return await _rolesRepository
             .GetUserPermissionsAsync<TPermission>(userId, cancellationToken)

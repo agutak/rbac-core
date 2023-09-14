@@ -22,7 +22,10 @@ jobs:
         dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore Rbac.Core.sln
-      working-directory: /
-    - name: Build
+      working-directory: ./
+    - name: Build Rbac.Core.Abstractions
       run: dotnet build --no-restore
       working-directory: ./src/Rbac.Core.Abstractions
+    - name: Build Rbac.Core.Persistence.EntityFramework
+      run: dotnet build --no-restore
+      working-directory: ./src/Rbac.Core.Persistence.EntityFramework

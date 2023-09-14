@@ -1,4 +1,4 @@
-﻿namespace AHutak.Rbac.Core.Abstractions.Entities.PermissionAggregate;
+﻿namespace AHutak.Rbac.Core.Abstractions.Entities;
 
 public abstract class Permission
 {

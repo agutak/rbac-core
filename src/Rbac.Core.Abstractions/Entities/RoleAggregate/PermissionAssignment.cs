@@ -1,4 +1,4 @@
-﻿namespace AHutak.Rbac.Core.Abstractions.Entities.RoleAggregate;
+﻿namespace AHutak.Rbac.Core.Abstractions.Entities;
 
 public class PermissionAssignment
 {

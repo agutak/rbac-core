@@ -1,28 +1,28 @@
-﻿using AHutak.Rbac.Core.Abstractions.Entities.RoleAggregate;
+﻿using AHutak.Rbac.Core.Abstractions.Entities;
 
 namespace AHutak.Rbac.Core.Abstractions.Services;
 
-internal class AdministrativeService<TRole> : IAdministrativeService<TRole> where TRole : Role
+public class AdministrativeService : AdministrativeService<Role>
+{
+    public AdministrativeService(IRolesRepository<Role> rolesRepository) : base(rolesRepository)
+    {
+    }
+}
+
+public class AdministrativeService<TRole> : IAdministrativeService<TRole>
+    where TRole : Role
 {
     private readonly IRolesRepository<TRole> _rolesRepository;
-    private readonly IUnitOfWork _unitOfWork;
 
-    public AdministrativeService(
-        IRolesRepository<TRole> rolesRepository,
-        IUnitOfWork unitOfWork)
+    public AdministrativeService(IRolesRepository<TRole> rolesRepository)
     {
         _rolesRepository = rolesRepository;
-        _unitOfWork = unitOfWork;
     }
 
     public async Task AddRoleAsync(TRole role, CancellationToken cancellationToken)
     {
         await _rolesRepository
             .AddAsync(role, cancellationToken)
-            .ConfigureAwait(false);
-
-        await _unitOfWork
-            .CompleteAsync(cancellationToken)
             .ConfigureAwait(false);
     }
 
@@ -36,17 +36,13 @@ internal class AdministrativeService<TRole> : IAdministrativeService<TRole> wher
             return false;
 
         await _rolesRepository
-            .DeleteAsync(roleId, cancellationToken)
-            .ConfigureAwait(false);
-
-        await _unitOfWork
-            .CompleteAsync(cancellationToken)
+            .DeleteAsync(role, cancellationToken)
             .ConfigureAwait(false);
 
         return true;
     }
 
-    public async Task<bool> AssignUserAsync(Guid userId, Guid roleId, CancellationToken cancellationToken)
+    public async Task<bool> AssignUserAsync(string userId, Guid roleId, CancellationToken cancellationToken)
     {
         var role = await _rolesRepository
             .GetAggregateAsync(roleId, cancellationToken)
@@ -57,14 +53,14 @@ internal class AdministrativeService<TRole> : IAdministrativeService<TRole> wher
 
         role.AssignUser(userId);
 
-        await _unitOfWork
-            .CompleteAsync(cancellationToken)
+        await _rolesRepository
+            .UpdateAsync(role, cancellationToken)
             .ConfigureAwait(false);
 
         return true;
     }
 
-    public async Task<bool> DeassignUserAsync(Guid userId, Guid roleId, CancellationToken cancellationToken)
+    public async Task<bool> DeassignUserAsync(string userId, Guid roleId, CancellationToken cancellationToken)
     {
         var role = await _rolesRepository
             .GetAggregateAsync(roleId, cancellationToken)
@@ -75,8 +71,8 @@ internal class AdministrativeService<TRole> : IAdministrativeService<TRole> wher
 
         role.DeassignUser(userId);
 
-        await _unitOfWork
-            .CompleteAsync(cancellationToken)
+        await _rolesRepository
+            .UpdateAsync(role, cancellationToken)
             .ConfigureAwait(false);
 
         return true;
@@ -93,8 +89,8 @@ internal class AdministrativeService<TRole> : IAdministrativeService<TRole> wher
 
         role.GrantPermission(permissionId);
 
-        await _unitOfWork
-            .CompleteAsync(cancellationToken)
+        await _rolesRepository
+            .UpdateAsync(role, cancellationToken)
             .ConfigureAwait(false);
 
         return true;
@@ -111,8 +107,8 @@ internal class AdministrativeService<TRole> : IAdministrativeService<TRole> wher
 
         role.RevokePermission(permissionId);
 
-        await _unitOfWork
-            .CompleteAsync(cancellationToken)
+        await _rolesRepository
+            .UpdateAsync(role, cancellationToken)
             .ConfigureAwait(false);
 
         return true;
