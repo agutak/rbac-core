@@ -1,12 +1,17 @@
-﻿using AHutak.Rbac.Core.Abstractions.Entities.PermissionAggregate;
-using AHutak.Rbac.Core.Abstractions.Entities.RoleAggregate;
+﻿using AHutak.Rbac.Core.Abstractions.Entities;
 using AHutak.Rbac.Core.Abstractions.Services;
-using AHutak.Rbac.Core.Persistence.MsSql.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace AHutak.Rbac.Core.Persistence.MsSql.Repositories;
+namespace AHutak.Rbac.Core.Persistence.EntityFramework;
 
-internal class RolesRepository<TRole> : IRolesRepository<TRole> where TRole : Role
+public class RolesRepository : RolesRepository<Role>
+{
+    public RolesRepository(RbacDbContext dbContext) : base(dbContext)
+    {
+    }
+}
+
+public class RolesRepository<TRole> : IRolesRepository<TRole> where TRole : Role
 {
     private readonly RbacDbContext _dbContext;
     private readonly DbSet<TRole> _set;
@@ -19,19 +24,34 @@ internal class RolesRepository<TRole> : IRolesRepository<TRole> where TRole : Ro
         _readOnlySet = dbContext.Set<TRole>().AsNoTracking();
     }
 
-    public Task AddAsync(TRole role, CancellationToken cancellationToken)
+    public virtual async Task AddAsync(TRole role, CancellationToken cancellationToken)
     {
         _set.Add(role);
-        return Task.CompletedTask;
+
+        await _dbContext
+            .SaveChangesAsync(cancellationToken)
+            .ConfigureAwait(false);
     }
 
-    public Task DeleteAsync(Guid roleId, CancellationToken cancellationToken)
+    public virtual async Task UpdateAsync(TRole role, CancellationToken cancellationToken)
     {
-        // TODO: Implement
-        return Task.CompletedTask;
+        _set.Update(role);
+
+        await _dbContext
+            .SaveChangesAsync(cancellationToken)
+            .ConfigureAwait(false);
     }
 
-    public async Task<TRole?> GetAggregateAsync(Guid id, CancellationToken cancellationToken)
+    public virtual async Task DeleteAsync(TRole role, CancellationToken cancellationToken)
+    {
+        _set.Remove(role);
+
+        await _dbContext
+            .SaveChangesAsync(cancellationToken)
+            .ConfigureAwait(false);
+    }
+
+    public virtual async Task<TRole?> GetAggregateAsync(Guid id, CancellationToken cancellationToken)
     {
         return await _set
             .Include(x => x.PermissionAssignments)
@@ -40,7 +60,7 @@ internal class RolesRepository<TRole> : IRolesRepository<TRole> where TRole : Ro
             .ConfigureAwait(false);
     }
 
-    public async Task<List<TRole>> GetAssignedRolesAsync(string userId, CancellationToken cancellationToken)
+    public virtual async Task<List<TRole>> GetAssignedRolesAsync(string userId, CancellationToken cancellationToken)
     {
         return await _readOnlySet
             .Where(x => x.UserAssignments.Any(u => u.UserId == userId))
@@ -48,7 +68,7 @@ internal class RolesRepository<TRole> : IRolesRepository<TRole> where TRole : Ro
             .ConfigureAwait(false);
     }
 
-    public async Task<List<string>> GetAssignedUsersAsync(Guid roleId, CancellationToken cancellationToken)
+    public virtual async Task<List<string>> GetAssignedUsersAsync(Guid roleId, CancellationToken cancellationToken)
     {
         return await _readOnlySet
             .Where(x => x.Id == roleId)
@@ -58,7 +78,7 @@ internal class RolesRepository<TRole> : IRolesRepository<TRole> where TRole : Ro
             .ConfigureAwait(false);
     }
 
-    public async Task<List<TPermission>> GetRolePermissionsAsync<TPermission>(Guid roleId, CancellationToken cancellationToken)
+    public virtual async Task<List<TPermission>> GetRolePermissionsAsync<TPermission>(Guid roleId, CancellationToken cancellationToken)
         where TPermission : Permission
     {
         var permissions = _dbContext.Set<TPermission>();
@@ -75,7 +95,7 @@ internal class RolesRepository<TRole> : IRolesRepository<TRole> where TRole : Ro
             .ConfigureAwait(false);
     }
 
-    public async Task<List<TPermission>> GetUserPermissionsAsync<TPermission>(string userId, CancellationToken cancellationToken)
+    public virtual async Task<List<TPermission>> GetUserPermissionsAsync<TPermission>(string userId, CancellationToken cancellationToken)
         where TPermission : Permission
     {
         var permissions = _dbContext.Set<TPermission>();

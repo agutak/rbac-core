@@ -1,4 +1,4 @@
-﻿using AHutak.Rbac.Core.Abstractions.Entities.RoleAggregate;
+﻿using AHutak.Rbac.Core.Abstractions.Entities;
 
 namespace AHutak.Rbac.Core.Abstractions.Services;
 

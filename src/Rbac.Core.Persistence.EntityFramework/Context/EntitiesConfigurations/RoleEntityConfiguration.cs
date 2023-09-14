@@ -1,14 +1,15 @@
-﻿using AHutak.Rbac.Core.Abstractions.Entities.RoleAggregate;
+﻿using AHutak.Rbac.Core.Abstractions.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AHutak.Rbac.Core.Persistence.MsSql.Context.EntitiesConfigurations;
+namespace AHutak.Rbac.Core.Persistence.EntityFramework;
 
-internal class RoleEntityConfiguration : IEntityTypeConfiguration<Role>
+internal class RoleEntityConfiguration<TRole> : IEntityTypeConfiguration<TRole>
+    where TRole : Role
 {
-    private const string _keyPropertyName = "_id";
+    private static readonly string _keyPropertyName = "_id";
 
-    public void Configure(EntityTypeBuilder<Role> builder)
+    public void Configure(EntityTypeBuilder<TRole> builder)
     {
         builder.ToTable("Roles");
 
@@ -23,6 +24,7 @@ internal class RoleEntityConfiguration : IEntityTypeConfiguration<Role>
         builder
             .HasMany(x => x.PermissionAssignments)
             .WithOne()
+            .HasPrincipalKey(x => x.Id)
             .IsRequired();
 
         builder.Metadata
@@ -32,6 +34,7 @@ internal class RoleEntityConfiguration : IEntityTypeConfiguration<Role>
         builder
             .HasMany(x => x.UserAssignments)
             .WithOne()
+            .HasPrincipalKey(x => x.Id)
             .IsRequired();
 
         builder

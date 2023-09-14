@@ -11,6 +11,5 @@
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 
     <Authors>Anatolii Hutak</Authors>
-    <Version>1.0.0</Version>
   </PropertyGroup>
 </Project>

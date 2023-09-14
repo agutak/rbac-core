@@ -1,5 +1,4 @@
-﻿using AHutak.Rbac.Core.Abstractions.Entities.PermissionAggregate;
-using AHutak.Rbac.Core.Abstractions.Entities.RoleAggregate;
+﻿using AHutak.Rbac.Core.Abstractions.Entities;
 
 namespace AHutak.Rbac.Core.Abstractions.Services;
 
@@ -9,7 +8,9 @@ public interface IRolesRepository<TRole> where TRole : Role
 
     Task AddAsync(TRole role, CancellationToken cancellationToken);
 
-    Task DeleteAsync(Guid roleId, CancellationToken cancellationToken);
+    Task UpdateAsync(TRole role, CancellationToken cancellationToken);
+
+    Task DeleteAsync(TRole role, CancellationToken cancellationToken);
 
     Task<List<string>> GetAssignedUsersAsync(Guid roleId, CancellationToken cancellationToken);
 

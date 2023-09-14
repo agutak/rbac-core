@@ -16,13 +16,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rbac.Core.Persistence.MsSql", "src\Rbac.Core.Persistence.MsSql\Rbac.Core.Persistence.MsSql.csproj", "{FFEE1720-5243-4575-956E-1600DFFCA261}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rbac.Core.Persistence.EntityFramework", "src\Rbac.Core.Persistence.EntityFramework\Rbac.Core.Persistence.EntityFramework.csproj", "{FFEE1720-5243-4575-956E-1600DFFCA261}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{FA3E899D-E5F6-4FA7-8ABE-7723247A0795}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D0F565ED-01D5-4888-ADDA-B7E606CE63C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebApiApplication", "samples\TestWebApiApplication\TestWebApiApplication.csproj", "{BAC448B3-0219-41D0-9FB5-8B57822943AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestWebApiApplication", "samples\TestWebApiApplication\TestWebApiApplication.csproj", "{BAC448B3-0219-41D0-9FB5-8B57822943AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

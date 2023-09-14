@@ -1,15 +1,19 @@
-﻿using AHutak.Rbac.Core.Abstractions.Entities.RoleAggregate;
+﻿using AHutak.Rbac.Core.Abstractions.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace AHutak.Rbac.Core.Persistence.MsSql.Context.EntitiesConfigurations;
+namespace AHutak.Rbac.Core.Persistence.EntityFramework;
 
 internal class PermissionAssignmentEntityConfiguration : IEntityTypeConfiguration<PermissionAssignment>
 {
+    private static readonly string _keyPropertyName = "_id";
+
     public void Configure(EntityTypeBuilder<PermissionAssignment> builder)
     {
         builder.ToTable("PermissionAssignments");
 
-        builder.HasKey(x => new { x.RoleId, x.PermissionId });
+        builder.Property<int>(_keyPropertyName);
+
+        builder.HasKey(_keyPropertyName);
     }
 }

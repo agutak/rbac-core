@@ -1,7 +1,13 @@
-﻿using AHutak.Rbac.Core.Abstractions.Entities.PermissionAggregate;
-using AHutak.Rbac.Core.Abstractions.Entities.RoleAggregate;
+﻿using AHutak.Rbac.Core.Abstractions.Entities;
 
 namespace AHutak.Rbac.Core.Abstractions.Services;
+
+public class ReviewService : ReviewService<Role, SimplePermission>
+{
+    public ReviewService(IRolesRepository<Role> rolesRepository) : base(rolesRepository)
+    {
+    }
+}
 
 public class ReviewService<TRole, TPermission> : IReviewService<TRole, TPermission>
     where TRole : Role
