@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AHutak.Rbac.Core.Persistence.EntityFramework;
 
-internal class PermissionEntityConfiguration<TPermission> : IEntityTypeConfiguration<TPermission>
+internal sealed class PermissionEntityConfiguration<TPermission> : IEntityTypeConfiguration<TPermission>
     where TPermission : Permission
 {
     private static readonly string _keyPropertyName = "_id";

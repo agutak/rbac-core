@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AHutak.Rbac.Core.Persistence.EntityFramework;
 
-internal class UserAssignmentEntityConfiguration : IEntityTypeConfiguration<UserAssignment>
+internal sealed class UserAssignmentEntityConfiguration : IEntityTypeConfiguration<UserAssignment>
 {
     private static readonly string _keyPropertyName = "_id";
 

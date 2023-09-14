@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AHutak.Rbac.Core.Persistence.EntityFramework;
 
-internal class RoleEntityConfiguration<TRole> : IEntityTypeConfiguration<TRole>
+internal sealed class RoleEntityConfiguration<TRole> : IEntityTypeConfiguration<TRole>
     where TRole : Role
 {
     private static readonly string _keyPropertyName = "_id";
