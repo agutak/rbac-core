@@ -60,7 +60,7 @@ public class RolesRepository<TRole> : IRolesRepository<TRole> where TRole : Role
             .ConfigureAwait(false);
     }
 
-    public virtual async Task<List<TRole>> GetAssignedRolesAsync(string userId, CancellationToken cancellationToken)
+    public virtual async Task<List<TRole>> GetAssignedRolesAsync(Guid userId, CancellationToken cancellationToken)
     {
         return await _readOnlySet
             .Where(x => x.UserAssignments.Any(u => u.UserId == userId))
@@ -68,7 +68,7 @@ public class RolesRepository<TRole> : IRolesRepository<TRole> where TRole : Role
             .ConfigureAwait(false);
     }
 
-    public virtual async Task<List<string>> GetAssignedUsersAsync(Guid roleId, CancellationToken cancellationToken)
+    public virtual async Task<List<Guid>> GetAssignedUsersAsync(Guid roleId, CancellationToken cancellationToken)
     {
         return await _readOnlySet
             .Where(x => x.Id == roleId)
@@ -95,7 +95,7 @@ public class RolesRepository<TRole> : IRolesRepository<TRole> where TRole : Role
             .ConfigureAwait(false);
     }
 
-    public virtual async Task<List<TPermission>> GetUserPermissionsAsync<TPermission>(string userId, CancellationToken cancellationToken)
+    public virtual async Task<List<TPermission>> GetUserPermissionsAsync<TPermission>(Guid userId, CancellationToken cancellationToken)
         where TPermission : Permission
     {
         var permissions = _dbContext.Set<TPermission>();
@@ -109,6 +109,13 @@ public class RolesRepository<TRole> : IRolesRepository<TRole> where TRole : Role
                 p => p.Id,
                 (pa, p) => p)
             .ToListAsync(cancellationToken)
+            .ConfigureAwait(false);
+    }
+
+    public virtual async Task SaveChangesAsync(CancellationToken cancellationToken)
+    {
+        _ = await _dbContext
+            .SaveChangesAsync(cancellationToken)
             .ConfigureAwait(false);
     }
 }

@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/samples/">
+    <Project Path="samples/TestWebApiApplication/TestWebApiApplication.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="global.json" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="src/Rbac.Core.Abstractions/Rbac.Core.Abstractions.csproj" />
+  <Project Path="src/Rbac.Core.Persistence.EntityFramework/Rbac.Core.Persistence.EntityFramework.csproj" />
+</Solution>

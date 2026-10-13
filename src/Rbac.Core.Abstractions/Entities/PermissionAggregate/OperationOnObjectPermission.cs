@@ -14,6 +14,21 @@ public class OperationOnObjectPermission : Permission
         ObjectId = objectId;
     }
 
+    public OperationOnObjectPermission(
+        Guid id,
+        string name,
+        string? description,
+        IRbacOperation rbacOperation,
+        IRbacObject rbacObject)
+        : base(id, name, description)
+    {
+        ArgumentNullException.ThrowIfNull(rbacOperation, nameof(rbacOperation));
+        ArgumentNullException.ThrowIfNull(rbacObject, nameof(rbacObject));
+
+        OperationId = rbacOperation.Id;
+        ObjectId = rbacObject.Id;
+    }
+
     public Guid OperationId { get; init; }
     public Guid ObjectId { get; init; }
 }

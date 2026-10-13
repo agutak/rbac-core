@@ -67,7 +67,6 @@ app.MapGet("/test", async (
 
     return true;//result;
 })
-.WithName("TestRoles")
-.WithOpenApi();
+.WithName("TestRoles");
 
 await app.RunAsync();

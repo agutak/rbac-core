@@ -2,15 +2,12 @@
 
 public class UserAssignment
 {
-    public UserAssignment(string userId, Guid roleId)
+    public UserAssignment(Guid userId, Guid roleId)
     {
-        if (string.IsNullOrWhiteSpace(userId))
-            throw new ArgumentException("UserId cannot be null or whitespace", nameof(userId));
-
         UserId = userId;
         RoleId = roleId;
     }
 
-    public string UserId { get; init; }
+    public Guid UserId { get; init; }
     public Guid RoleId { get; init; }
 }

@@ -1,39 +1,16 @@
 ﻿namespace AHutak.Rbac.Core.Abstractions.Entities;
 
-public class Role
+public class Role(Guid id, string name, string? description) : Entity(id, name, description)
 {
-    private readonly List<UserAssignment> _userAssignments = new();
-    private readonly List<PermissionAssignment> _permissionAssignments = new();
+    private readonly List<UserAssignment> _userAssignments = [];
+    private readonly List<PermissionAssignment> _permissionAssignments = [];
 
-    public Role(
-        Guid id,
-        string name,
-        string? description)
-    {
-        ValidateName(name);
-
-        Id = id;
-        Name = name;
-        Description = description;
-    }
-
-    public Guid Id { get; init; }
-    public string Name { get; protected set; }
-    public string? Description { get; protected set; }
     public IReadOnlyList<UserAssignment> UserAssignments =>
         _userAssignments.AsReadOnly();
     public IReadOnlyList<PermissionAssignment> PermissionAssignments =>
         _permissionAssignments.AsReadOnly();
 
-    public virtual void UpdateInfo(string name, string? description)
-    {
-        ValidateName(name);
-
-        Name = name;
-        Description = description;
-    }
-
-    public virtual void AssignUser(string userId)
+    public virtual void AssignUser(Guid userId)
     {
         if (_userAssignments.Any(x => x.UserId == userId))
             return;
@@ -41,7 +18,7 @@ public class Role
         _userAssignments.Add(new UserAssignment(userId, Id));
     }
 
-    public virtual void DeassignUser(string userId)
+    public virtual void DeassignUser(Guid userId)
     {
         _ = _userAssignments.RemoveAll(x => x.UserId == userId);
     }
@@ -57,11 +34,5 @@ public class Role
     public virtual void RevokePermission(Guid permissionId)
     {
         _ = _permissionAssignments.RemoveAll(x => x.PermissionId == permissionId);
-    }
-
-    private static void ValidateName(string name)
-    {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("Role Name cannot be null or whitespace", nameof(name));
     }
 }
